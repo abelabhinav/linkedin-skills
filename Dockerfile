@@ -24,10 +24,8 @@ COPY scripts/ ./scripts/
 COPY references/ ./references/
 COPY skills/ ./skills/
 
-# Create persistent data volume mount point
+# Create persistent data directory
 RUN mkdir -p /data
-
-VOLUME ["/data"]
 
 EXPOSE 8080
 
