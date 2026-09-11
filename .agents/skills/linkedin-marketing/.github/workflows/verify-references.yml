@@ -1,0 +1,24 @@
+name: Verify skill references
+
+on:
+  pull_request:
+    branches: [main, master]
+  push:
+    branches: [main, master]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Check no credentials are tracked
+        run: python3 scripts/check_no_secrets.py
+      - name: Install YAML parser
+        run: python3 -m pip install --quiet pyyaml
+      - name: Check SKILL.md frontmatter parses
+        run: python3 scripts/check_frontmatter.py
+      - name: Check relative Markdown references
+        run: python3 scripts/check_markdown_references.py
